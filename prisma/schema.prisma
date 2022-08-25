@@ -49,6 +49,7 @@ model Camper {
   parent Contact
   doctor Contact
   medication Medication[]
+  events Events[]
 }
 
 model Counselor {
@@ -56,12 +57,16 @@ model Counselor {
   name  String
   email String
   phone String
+  events Events[]
 }
 
 model Events {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  camperId  String
+  camper  Camper @relation(references: [id], fields: [camperId])
+  camperId String @db.ObjectId
+  counselor Counselor @relation(fields: [counselorId], references: [id])
   counselorId   String
   quantity  Float
   type Report
+  timestamp DateTime @default(now())
 }
