@@ -1,16 +1,12 @@
 import { fastify, FastifyInstance } from "fastify";
+import authRoutes from "./routes/auth";
+
 const server: FastifyInstance = fastify({
   ignoreTrailingSlash: true,
   logger: true,
 });
 
-server.get("/signup", (req, reply) => {
-  reply.send({ message: "signed up user" });
-});
-
-server.get("/signin", (req, reply) => {
-  reply.send({ message: "signed in user"});
-});
+server.register(authRoutes);
 
 server.get("/", (req, reply) => {
   reply.send({ ping: "pong" });
