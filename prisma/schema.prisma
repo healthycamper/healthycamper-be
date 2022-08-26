@@ -10,6 +10,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Diagnosis {
+  TYPE1
+  TYPE2
+}
+
+enum Relation {
+  Mom
+  Dad
+  Doctor
+}
+
+enum Report {
+  GLUCOSE
+  CARBS
+  INSULIN
+}
+
+type Medication {
+  name String
+  dosage Int
+  dosageUnits String
+}
+
+type Contact {
+  name String
+  relation String
+  phoneNumber String
+  email String
+}
+
 model Camper {
-  Name: 
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  age   Int
+  diagnosis Diagnosis
+  gender String
+  parent Contact
+  doctor Contact
+  medication Medication[]
+  events Events[]
+}
+
+model Counselor {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  email String
+  phone String
+  events Events[]
+  authentication Authentication?
+}
+
+model Authentication {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  counselor Counselor @relation(fields: [counselorId], references: [id])
+  counselorId   String @unique
+  password String
+}
+
+model Events {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  camper  Camper @relation(references: [id], fields: [camperId])
+  camperId String @db.ObjectId
+  counselor Counselor @relation(fields: [counselorId], references: [id])
+  counselorId   String
+  quantity  Float
+  type Report
+  timestamp DateTime @default(now())
 }
