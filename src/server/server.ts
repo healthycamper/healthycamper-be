@@ -4,6 +4,14 @@ const server: FastifyInstance = fastify({
   logger: true,
 });
 
+server.get("/signup", (req, reply) => {
+  reply.send({ message: "signed up user" });
+});
+
+server.get("/signin", (req, reply) => {
+  reply.send({ message: "signed in user"});
+});
+
 server.get("/", (req, reply) => {
   reply.send({ ping: "pong" });
 });
