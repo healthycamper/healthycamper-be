@@ -58,6 +58,14 @@ model Counselor {
   email String
   phone String
   events Events[]
+  authentication Authentication?
+}
+
+model Authentication {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  counselor Counselor @relation(fields: [counselorId], references: [id])
+  counselorId   String @unique
+  password String
 }
 
 model Events {
