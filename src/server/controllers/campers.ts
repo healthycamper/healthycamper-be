@@ -19,10 +19,30 @@ export const addCamper = async (newCamper: NewCamper): Promise<Camper> => {
     }
 
     const camper = await prisma.camper.create({ data: newCamper });
-    console.log(camper);
+
     return camper;
   } catch (error) {
     console.warn(`Error occured adding a camper: ${error}`);
+    throw error;
+  }
+};
+
+export const editCamper = async (
+  id: string,
+  updatedCamper: Partial<Camper>
+): Promise<Camper> => {
+  try {
+    if (id === undefined) throw new Error("Camper Id must be provided");
+
+    const camper: Camper = await prisma.camper.update({
+      where: { id: id },
+      data: { ...updatedCamper },
+    });
+
+    return camper;
+  } catch (error) {
+    console.warn(`Error occured editing a camper: ${error}
+    camper id: ${updatedCamper.id}`);
     throw error;
   }
 };
