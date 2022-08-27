@@ -3,7 +3,7 @@ import { Camper, Contact } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { addCamper, editCamper } from "../../src/server/controllers/campers";
 import { prismaMock } from "../../src/server/db/prismaMock";
-import prisma from "../../src/server/db/client";
+
 // @ts-expect-error
 const camper: Camper = {
   name: "Little Billy",
