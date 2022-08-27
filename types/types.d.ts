@@ -1,7 +1,10 @@
-import { Camper } from "@prisma/client";
+import { Camper, Counselor } from "@prisma/client";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NewCamper extends Omit<Camper, "id"> {}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface NewCounselor extends Omit<Counselor, "id"> {}
 
 export interface Contact {
   name: string;
