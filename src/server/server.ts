@@ -1,21 +1,6 @@
-import { fastify, FastifyInstance } from "fastify";
-import camper from "./routes/camper";
+import buildServer from "./app";
 
-const server: FastifyInstance = fastify({
-  ignoreTrailingSlash: true,
-  logger: true,
-  ajv: {
-    customOptions: {
-      strict: "log",
-    },
-  },
-});
-
-server.register(camper, { prefix: "campers" });
-
-server.get("/", (req, reply) => {
-  reply.send({ ping: "pong" });
-});
+const server = buildServer();
 
 server.listen({ port: 3000 }, (err) => {
   if (err) {
