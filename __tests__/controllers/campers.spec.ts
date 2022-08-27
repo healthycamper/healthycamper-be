@@ -33,10 +33,12 @@ describe("addCamper", () => {
   };
 
   it("should create a new camper", async () => {
+    const id = faker.database.mongodbObjectId();
+    camper.id = id;
     prismaMock.camper.create.mockResolvedValue(camper);
 
-    // @ts-expect-error
     await expect(addCamper(camper)).resolves.toEqual({
+      id,
       name: "Little Billy",
       age: 8,
       gender: "Male",
@@ -69,14 +71,14 @@ describe("addCamper", () => {
 
       const badCamper = {
         ...camper,
-        field: null,
-        id: faker.random.alphaNumeric(24),
       };
+
       // @ts-expect-error
-      prismaMock.camper.create(badCamper);
-      // @ts-expect-error
+      delete badCamper[field];
+
+      // prismaMock.camper.create(badCamper);
       await expect(addCamper(badCamper)).rejects.toHaveProperty(
-        "error",
+        "message",
         `${field} is required`
       );
     }
