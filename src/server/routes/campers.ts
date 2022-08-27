@@ -83,6 +83,7 @@ export default function (
         200: {
           type: "object",
           properties: {
+            id: { type: "string" },
             name: { type: "string" },
             age: { type: "integer" },
             diagnosis: { type: "string" },

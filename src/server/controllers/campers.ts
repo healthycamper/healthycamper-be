@@ -19,7 +19,7 @@ export const addCamper = async (newCamper: NewCamper): Promise<Camper> => {
     }
 
     const camper = await prisma.camper.create({ data: newCamper });
-
+    console.log(camper);
     return camper;
   } catch (error) {
     console.warn(`Error occured adding a camper: ${error}`);
