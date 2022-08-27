@@ -14,7 +14,7 @@ function buildServer() {
   });
 
   server.register(camper, { prefix: "campers" });
-  server.register(authRoutes);
+  server.register(authRoutes, { prefix: "counselors" });
 
   server.get("/", (req, reply) => {
     reply.send({ ping: "pong" });

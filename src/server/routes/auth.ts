@@ -1,6 +1,14 @@
-import { FastifyInstance } from "fastify";
+import {
+  FastifyInstance,
+  FastifyPluginOptions,
+  HookHandlerDoneFunction,
+} from "fastify";
 
-const routes = (fastify: FastifyInstance, options: object, done: any) => {
+const routes = (
+  fastify: FastifyInstance,
+  options: FastifyPluginOptions,
+  done: HookHandlerDoneFunction
+) => {
   fastify.post("/signup", (req, reply) => {
     return { message: "signed up user" };
   });

@@ -1,7 +1,7 @@
 import prisma from "../db/client";
 import { NewCounselor } from "../../../types/types";
 
-const addCounselor = (counselor: NewCounselor) => {
+export const addCounselor = (counselor: NewCounselor) => {
   let addedCounselor;
   try {
     addedCounselor = prisma.counselor.create({
@@ -14,7 +14,7 @@ const addCounselor = (counselor: NewCounselor) => {
   return addedCounselor;
 };
 
-const getCounselor = (counselorId: string) => {
+export const getCounselor = (counselorId: string) => {
   let counselor;
   try {
     counselor = prisma.counselor.findUnique({
@@ -29,6 +29,32 @@ const getCounselor = (counselorId: string) => {
   return counselor;
 };
 
-// const updateCounselor = ()
-// editCounselor
-// deleteCounselor
+export const updateCounselor = (
+  counselor: Partial<NewCounselor>,
+  counselorId: string
+) => {
+  let updatedCounselor;
+  try {
+    updatedCounselor = prisma.counselor.update({
+      data: counselor,
+      where: { id: counselorId },
+    });
+  } catch (error) {
+    throw new Error(`Error in updateCounselor:\n ${error}`);
+  }
+
+  return updatedCounselor;
+};
+
+export const deleteCounselor = (counselorId: string) => {
+  let deletedCounselor;
+  try {
+    deletedCounselor = prisma.counselor.delete({
+      where: { id: counselorId },
+    });
+  } catch (error) {
+    throw new Error(`Error in updateCounselor:\n ${error}`);
+  }
+
+  return deletedCounselor;
+};
