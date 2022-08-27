@@ -5,8 +5,8 @@ import { addCamper } from "../../src/server/controllers/campers";
 import { prismaMock } from "../../src/server/db/prismaMock";
 
 describe("addCamper", () => {
+  // @ts-expect-error
   const camper: Camper = {
-    id: "630834d8f69c5f3228a7ddc1",
     name: "Little Billy",
     age: 8,
     gender: "Male",
@@ -33,12 +33,10 @@ describe("addCamper", () => {
   };
 
   it("should create a new camper", async () => {
-    camper.id = faker.random.alphaNumeric(24);
     prismaMock.camper.create.mockResolvedValue(camper);
 
     // @ts-expect-error
     await expect(addCamper(camper)).resolves.toEqual({
-      id: "630834d8f69c5f3228a7ddc1",
       name: "Little Billy",
       age: 8,
       gender: "Male",
