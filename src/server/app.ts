@@ -14,11 +14,15 @@ function buildServer() {
 
   schema.forEach((schema) => server.addSchema(schema));
 
-  server.register(camper, { prefix: "campers" });
-
-  server.get("/", (req, reply) => {
-    reply.send({ ping: "pong" });
+  server.get("/signup", (req, reply) => {
+    reply.send({ message: "signed up user" });
   });
+
+  server.get("/signin", (req, reply) => {
+    reply.send({ message: "signed in user" });
+  });
+
+  server.register(camper, { prefix: "campers" });
 
   return server;
 }
