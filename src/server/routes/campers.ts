@@ -7,12 +7,16 @@ import {
 } from "fastify";
 import { NewCamper } from "types";
 import { addCamper, editCamper } from "../controllers/campers";
+import { schema } from "../schema";
 
 export default function (
   fastify: FastifyInstance,
   options: FastifyPluginOptions,
   done: HookHandlerDoneFunction
 ) {
+  const schemas = ["contact", "medication", "event"];
+  schemas.forEach((schema) => fastify.getSchema(schema));
+
   fastify.route({
     method: "POST",
     url: "/new",
@@ -26,33 +30,19 @@ export default function (
           gender: { type: "string" },
           parent: {
             type: "object",
-            properties: {
-              name: { type: "string" },
-              relation: { type: "string" },
-              phoneNumber: { type: "string" },
-              email: { type: "string" },
-            },
+            $ref: "contact#",
             required: ["name", "relation", "phoneNumber", "email"],
           },
           doctor: {
             type: "object",
-            properties: {
-              name: { type: "string" },
-              relation: { type: "string" },
-              phoneNumber: { type: "string" },
-              email: { type: "string" },
-            },
+            $ref: "contact#",
             required: ["name", "relation", "phoneNumber", "email"],
           },
           medication: {
             type: "array",
             items: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                dosage: { type: "integer" },
-                dosageUnits: { type: "string" },
-              },
+              $ref: "medication#",
               required: ["name", "dosage", "dosageUnits"],
             },
           },
@@ -60,12 +50,7 @@ export default function (
             type: "array",
             items: {
               type: "object",
-              properties: {
-                camperId: { type: "string" },
-                counselorId: { type: "integer" },
-                quantity: { type: "number" },
-                type: { type: "string" },
-              },
+              $ref: "event#",
               required: ["camperId", "counselorId", "quantity", "type"],
             },
           },
@@ -91,22 +76,12 @@ export default function (
             gender: { type: "string" },
             parent: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                relation: { type: "string" },
-                phoneNumber: { type: "string" },
-                email: { type: "string" },
-              },
+              $ref: "contact#",
               required: ["name", "relation", "phoneNumber", "email"],
             },
             doctor: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                relation: { type: "string" },
-                phoneNumber: { type: "string" },
-                email: { type: "string" },
-              },
+              $ref: "contact#",
               required: ["name", "relation", "phoneNumber", "email"],
             },
             medication: {
@@ -114,11 +89,7 @@ export default function (
               items: {
                 medication: {
                   type: "object",
-                  properties: {
-                    name: { type: "string" },
-                    dosage: { type: "integer" },
-                    dosageUnits: { type: "string" },
-                  },
+                  $ref: "medication#",
                   required: ["name", "dosage", "dosageUnits"],
                 },
               },
@@ -128,12 +99,7 @@ export default function (
               items: {
                 events: {
                   type: "object",
-                  properties: {
-                    camperId: { type: "string" },
-                    counselorId: { type: "integer" },
-                    quantity: { type: "number" },
-                    type: { type: "string" },
-                  },
+                  $ref: "event#",
                   required: ["camperId", "counselorId", "quantity", "type"],
                 },
               },
@@ -180,44 +146,24 @@ export default function (
           gender: { type: "string" },
           parent: {
             type: "object",
-            properties: {
-              name: { type: "string" },
-              relation: { type: "string" },
-              phoneNumber: { type: "string" },
-              email: { type: "string" },
-            },
+            $ref: "contact#",
           },
           doctor: {
             type: "object",
-            properties: {
-              name: { type: "string" },
-              relation: { type: "string" },
-              phoneNumber: { type: "string" },
-              email: { type: "string" },
-            },
+            $ref: "contact#",
           },
           medication: {
             type: "array",
             items: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                dosage: { type: "integer" },
-                dosageUnits: { type: "string" },
-              },
-              required: ["name", "dosage", "dosageUnits"],
+              $ref: "medication#",
             },
           },
           events: {
             type: "array",
             items: {
               type: "object",
-              properties: {
-                camperId: { type: "string" },
-                counselorId: { type: "integer" },
-                quantity: { type: "number" },
-                type: { type: "string" },
-              },
+              $ref: "event#",
             },
           },
         },
@@ -233,22 +179,12 @@ export default function (
             gender: { type: "string" },
             parent: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                relation: { type: "string" },
-                phoneNumber: { type: "string" },
-                email: { type: "string" },
-              },
+              $ref: "contact#",
               required: ["name", "relation", "phoneNumber", "email"],
             },
             doctor: {
               type: "object",
-              properties: {
-                name: { type: "string" },
-                relation: { type: "string" },
-                phoneNumber: { type: "string" },
-                email: { type: "string" },
-              },
+              $ref: "contact#",
               required: ["name", "relation", "phoneNumber", "email"],
             },
             medication: {
@@ -256,11 +192,7 @@ export default function (
               items: {
                 medication: {
                   type: "object",
-                  properties: {
-                    name: { type: "string" },
-                    dosage: { type: "integer" },
-                    dosageUnits: { type: "string" },
-                  },
+                  $ref: "medication#",
                   required: ["name", "dosage", "dosageUnits"],
                 },
               },
@@ -270,12 +202,7 @@ export default function (
               items: {
                 events: {
                   type: "object",
-                  properties: {
-                    camperId: { type: "string" },
-                    counselorId: { type: "integer" },
-                    quantity: { type: "number" },
-                    type: { type: "string" },
-                  },
+                  $ref: "contact#",
                   required: ["camperId", "counselorId", "quantity", "type"],
                 },
               },
