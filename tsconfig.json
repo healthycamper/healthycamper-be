@@ -26,6 +26,6 @@
     "noImplicitThis": false,                           /* Enable error reporting when `this` is given the type `any`. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*", "__tests__/**/*"],
+  "include": ["src/**/*", "__tests__/**/*", "src/server/db/client.ts", "src/server/db/prismaMock.ts"],
   "exclude": ["node_modules"]
 }

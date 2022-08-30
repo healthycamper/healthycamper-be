@@ -1,6 +1,8 @@
 import { fastify, FastifyInstance } from "fastify";
 import camper from "./routes/campers";
-import authRoutes from "./routes/auth";
+import counselor from "./routes/counselor";
+
+import { schema } from "./schema";
 
 function buildServer() {
   const server: FastifyInstance = fastify({
@@ -13,8 +15,10 @@ function buildServer() {
     },
   });
 
+  schema.forEach((schema) => server.addSchema(schema));
+
   server.register(camper, { prefix: "campers" });
-  server.register(authRoutes, { prefix: "counselors" });
+  server.register(counselor, { prefix: "counselors" });
 
   server.get("/", (req, reply) => {
     reply.send({ ping: "pong" });

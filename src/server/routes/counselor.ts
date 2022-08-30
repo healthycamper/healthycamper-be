@@ -28,3 +28,4 @@ const routes = (
 // handler:
 // executes the 'controller' functions for the db logic execution
 // controllers receive and return as little information as possible
+export default routes;
