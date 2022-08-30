@@ -1,20 +1,6 @@
-import { fastify, FastifyInstance } from "fastify";
-const server: FastifyInstance = fastify({
-  ignoreTrailingSlash: true,
-  logger: true,
-});
+import buildServer from "./app";
 
-server.get("/signup", (req, reply) => {
-  reply.send({ message: "signed up user" });
-});
-
-server.get("/signin", (req, reply) => {
-  reply.send({ message: "signed in user"});
-});
-
-server.get("/", (req, reply) => {
-  reply.send({ ping: "pong" });
-});
+const server = buildServer();
 
 server.listen({ port: 3000 }, (err) => {
   if (err) {
