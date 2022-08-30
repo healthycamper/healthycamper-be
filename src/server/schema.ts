@@ -28,4 +28,36 @@ export const schema = [
       type: { type: "string" },
     },
   },
+  {
+    $id: "camper",
+    type: "object",
+    properties: {
+      name: { type: "string" },
+      age: { type: "integer" },
+      diagnosis: { type: "string" },
+      gender: { type: "string" },
+      parent: {
+        type: "object",
+        $ref: "contact#",
+      },
+      doctor: {
+        type: "object",
+        $ref: "contact#",
+      },
+      medication: {
+        type: "array",
+        items: {
+          type: "object",
+          $ref: "medication#",
+        },
+      },
+      events: {
+        type: "array",
+        items: {
+          type: "object",
+          $ref: "event#",
+        },
+      },
+    },
+  },
 ];

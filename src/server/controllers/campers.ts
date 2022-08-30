@@ -46,3 +46,14 @@ export const editCamper = async (
     throw error;
   }
 };
+
+export const getAllCampers = async (): Promise<Camper[]> => {
+  try {
+    const response = await prisma.camper.findMany();
+
+    return response;
+  } catch (error) {
+    console.warn(`Error occured with getAllCampers: ${error}`);
+    throw error;
+  }
+};

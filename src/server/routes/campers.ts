@@ -6,16 +6,44 @@ import {
   HookHandlerDoneFunction,
 } from "fastify";
 import { NewCamper } from "types";
-import { addCamper, editCamper } from "../controllers/campers";
-import { schema } from "../schema";
+import { addCamper, editCamper, getAllCampers } from "../controllers/campers";
 
 export default function (
   fastify: FastifyInstance,
   options: FastifyPluginOptions,
   done: HookHandlerDoneFunction
 ) {
-  const schemas = ["contact", "medication", "event"];
+  const schemas = ["contact", "medication", "event", "camper"];
   schemas.forEach((schema) => fastify.getSchema(schema));
+
+  fastify.route({
+    method: "GET",
+    url: "/",
+    schema: {
+      response: {
+        200: {
+          type: "array",
+          items: {
+            type: "object",
+            $ref: "camper#",
+          },
+        },
+      },
+    },
+    handler: async function (request, reply) {
+      try {
+        const campers = await getAllCampers();
+
+        return reply
+          .code(200)
+          .header("Content-Type", "application/json")
+          .send(campers);
+      } catch (error) {
+        console.warn(error);
+        throw error;
+      }
+    },
+  });
 
   fastify.route({
     method: "POST",
