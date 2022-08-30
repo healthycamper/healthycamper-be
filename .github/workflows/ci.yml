@@ -21,4 +21,6 @@ jobs:
         node-version: 17
         cache: 'npm'
     - run: npm ci --legacy-peer-deps
-    - run: export DATABASE_URL={{ secrets.DATABASE_URL }} && npm test
+    - run: |
+        export DATABASE_URL={{ secrets.DATABASE_URL }}
+        npm test
