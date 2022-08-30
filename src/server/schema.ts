@@ -28,4 +28,13 @@ export const schema = [
       type: { type: "string" },
     },
   },
+  {
+    $id: "counselor",
+    type: "object",
+    properties: {
+      name: { type: "string" },
+      email: { type: "string" },
+      phone: { type: "phone" },
+    },
+  },
 ];

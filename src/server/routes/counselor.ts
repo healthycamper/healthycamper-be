@@ -16,8 +16,12 @@ const routes = (
 ) => {
   // fastify.post("/new",
   //   {
-  //     body: {
-  //     }
+  //     schema: {
+  //       body: fastify.getSchema('counselor'),
+  //       response: {
+  //         200: fastify.getSchema('counselor'),
+  //       },
+  //     },
   //   },
   //   (request, reply) => {
   //   })
