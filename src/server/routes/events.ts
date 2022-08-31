@@ -1,10 +1,8 @@
 import {
   FastifyInstance,
   FastifyPluginOptions,
-  FastifyRequest,
   HookHandlerDoneFunction,
 } from "fastify";
-import { schema } from "../schema";
 import { Events } from "@prisma/client";
 import { addEvents } from "../controllers/events";
 

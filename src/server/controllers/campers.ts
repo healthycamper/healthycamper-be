@@ -12,6 +12,7 @@ export const addCamper = async (newCamper: NewCamper): Promise<Camper> => {
     "doctor",
     "medication",
   ];
+
   try {
     for (const field of fields) {
       if (Object.prototype.hasOwnProperty.call(newCamper, field) === false)
