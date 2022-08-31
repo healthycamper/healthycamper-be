@@ -17,10 +17,10 @@ export interface Medication {
 }
 
 export interface Events {
-  id?: string;
+  id: string;
   camperId: string;
   counselorId: string;
   quantity: number;
-  timestamp?: Date;
+  timestamp: Date;
   type: "GLUCOSE" | "CARBS" | "INSULIN";
 }
