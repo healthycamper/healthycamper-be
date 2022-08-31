@@ -1,5 +1,6 @@
 import { fastify, FastifyInstance } from "fastify";
 import camper from "./routes/campers";
+import events from "./routes/events";
 import { schema } from "./schema";
 function buildServer() {
   const server: FastifyInstance = fastify({
@@ -23,6 +24,7 @@ function buildServer() {
   });
 
   server.register(camper, { prefix: "campers" });
+  server.register(events, { prefix: "events" });
 
   return server;
 }

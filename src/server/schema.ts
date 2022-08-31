@@ -23,7 +23,7 @@ export const schema = [
     type: "object",
     properties: {
       camperId: { type: "string" },
-      counselorId: { type: "integer" },
+      counselorId: { type: "string" },
       quantity: { type: "number" },
       type: { type: "string" },
     },
