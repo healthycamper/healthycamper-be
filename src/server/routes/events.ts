@@ -1,18 +1,65 @@
 import {
   FastifyInstance,
   FastifyPluginOptions,
+  FastifyRequest,
   HookHandlerDoneFunction,
 } from "fastify";
 import { Events } from "@prisma/client";
-import { addEvents } from "../controllers/events";
+import { addEvents, getEvents } from "../controllers/events";
 
 export default function (
   fastify: FastifyInstance,
   options: FastifyPluginOptions,
   done: HookHandlerDoneFunction
 ) {
-  const schemas = ["event "];
+  const schemas = ["event"];
   schemas.forEach((schema) => fastify.getSchema(schema));
+
+  fastify.route({
+    method: "GET",
+    url: "/",
+    schema: {
+      querystring: {
+        type: "object",
+        properties: {
+          eventType: { type: "string" },
+          camperId: { type: "string" },
+        },
+        required: ["eventType"],
+      },
+      response: {
+        200: {
+          type: "array",
+          items: {
+            $ref: "event#",
+          },
+        },
+      },
+    },
+    handler: async function (
+      request: FastifyRequest<{
+        Querystring: {
+          eventType: "GLUCOSE" | "INSULIN" | "CARBS";
+          camperId?: string;
+        };
+      }>,
+      reply
+    ) {
+      try {
+        const { eventType, camperId } = request.query;
+
+        const events = await getEvents(eventType, camperId);
+
+        return reply
+          .code(200)
+          .header("Content-Type", "application/json")
+          .send(events);
+      } catch (error) {
+        console.warn(error);
+        throw error;
+      }
+    },
+  });
 
   fastify.route({
     method: "POST",
