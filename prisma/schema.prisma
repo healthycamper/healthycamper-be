@@ -71,8 +71,8 @@ model Authentication {
 model Events {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   camper  Camper @relation(references: [id], fields: [camperId])
-  camperId String @db.ObjectId
   counselor Counselor @relation(fields: [counselorId], references: [id])
+  camperId String @db.ObjectId
   counselorId   String
   quantity  Float
   type Report
