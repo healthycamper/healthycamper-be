@@ -32,6 +32,7 @@ export const schema = [
     $id: "camper",
     type: "object",
     properties: {
+      id: { type: "string" },
       name: { type: "string" },
       age: { type: "integer" },
       diagnosis: { type: "string" },

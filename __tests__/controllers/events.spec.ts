@@ -69,24 +69,6 @@ describe("Event Methods", () => {
   });
 
   describe("getEvents", () => {
-    const glucoseData = {
-      ...(eventGlucose as Events),
-      id: faker.database.mongodbObjectId(),
-      timestamp: new Date() as Date,
-    };
-
-    const carbsData = {
-      ...(eventCarbs as Events),
-      id: faker.database.mongodbObjectId(),
-      timestamp: new Date() as Date,
-    };
-
-    const insulinData = {
-      ...(eventInsulin as Events),
-      id: faker.database.mongodbObjectId(),
-      timestamp: new Date() as Date,
-    };
-
     it("Gets glucose data", async () => {
       const response = await getEvents("GLUCOSE");
 
